@@ -4383,13 +4383,15 @@ void idRenderMatrix::DepthBoundsForShadowBounds( float& min, float& max, const i
 	{
 		const idVec4& c = clippedPoints[i];
 
-		assert( c.w > idMath::FLT_SMALLEST_NON_DENORMAL );
+		if ( c.w >idMath::FLT_SMALLEST_NON_DENORMAL )
+		{
 
-		const float rw = 1.0f / c.w;
-		const float pz = c.z * rw;
+			const float rw = 1.0f / c.w;
+			const float pz = c.z * rw;
 
-		min = Min( min, pz );
-		max = Max( max, pz );
+			min = Min( min, pz );
+			max = Max( max, pz );
+		}
 	}
 
 	if( windowSpace )
